@@ -110,13 +110,13 @@ public class ServiceUtil {
         private void call(String service, int method, String body, ResultService result) throws Exception {
             this.method = method;
             final VolleyRequest VolleyRequest = new VolleyRequest(context, method, ServiceUtil.this.url, body, onSucess(service, result), onError(service, body, null, result), generate);
-//            AppController.getInstance().addToVolleyRequestQueue(VolleyRequest);
+            MoviesApplication.getApplication().addToRequestQueue(VolleyRequest);
         }
 
         private void call(String service, int method, String body, ResultService result, String tag) throws Exception {
             this.method = method;
             final VolleyRequest VolleyRequest = new VolleyRequest(context, method, ServiceUtil.this.url, body, onSucess(service, result), onError(service, body, tag, result), generate);
-//            AppController.getInstance().addToVolleyRequestQueue(VolleyRequest, tag);
+            MoviesApplication.getApplication().addToRequestQueue(VolleyRequest);
         }
 
 

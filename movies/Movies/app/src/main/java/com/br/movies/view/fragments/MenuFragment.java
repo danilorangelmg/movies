@@ -52,7 +52,7 @@ public class MenuFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_menu, container);
+        View view = inflater.inflate(R.layout.layout_menu, container, false);
         ButterKnife.bind(this, view);
         init();
         return view;
@@ -68,9 +68,9 @@ public class MenuFragment extends Fragment {
 
     private void loadMenu() {
         Map<String, Object> params = new HashMap<>();
-        params.put("api_key", Const.API_KEY);
+//        params.put("api_key", Const.API_KEY);
         try {
-            MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_MENU, Request.Method.GET, params, new ResultService() {
+            MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_GENRES, Request.Method.GET, params, new ResultService() {
                 @Override
                 public void onSucess(String service, JSONObject result) {
                     try {

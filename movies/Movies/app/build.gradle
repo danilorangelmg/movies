@@ -31,4 +31,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'org.immutables:gson:2.1.0.alpha'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
 }

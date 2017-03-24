@@ -12,7 +12,7 @@ public class ServiceUrl {
     private static Map<String, String> retrofitServices = new HashMap<>();
 //    public static final String GET_MOVIES = "/?plot=full&&s={{title}}";
 
-    public static final String GET_MENU = "genre/movie/list";
+    public static final String GET_GENRES = "/genres"; //GET
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");
