@@ -13,6 +13,7 @@ public class ServiceUrl {
 //    public static final String GET_MOVIES = "/?plot=full&&s={{title}}";
 
     public static final String GET_GENRES = "/genres"; //GET
+    public static final String GET_BANNERS = "/lastedMovies/banners"; //GET
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

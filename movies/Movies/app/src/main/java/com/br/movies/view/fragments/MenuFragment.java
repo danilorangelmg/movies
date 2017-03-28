@@ -62,7 +62,6 @@ public class MenuFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         adapter = new MenuAdapter();
         menuList.setLayoutManager(manager);
-        menuList.setAdapter(adapter);
         loadMenu();
     }
 
@@ -79,6 +78,7 @@ public class MenuFragment extends Fragment {
                         Menu[] menuArray = gson.fromJson(genres.toString(), Menu[].class);
                         List<Menu> menus = new ArrayList<Menu>(Arrays.asList(menuArray));
                         adapter.addData(menus);
+                        menuList.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

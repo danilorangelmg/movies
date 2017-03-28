@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="profile">Meus dados</string>
+    <string name="logout">Sair</string>
 </resources>

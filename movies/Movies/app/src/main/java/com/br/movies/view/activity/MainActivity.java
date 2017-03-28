@@ -1,12 +1,16 @@
 package com.br.movies.view.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.br.movies.R;
@@ -25,13 +29,18 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    private ActionBarDrawerToggle toggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupActionBar();
-//        initFragment();
+        initFragment();
         initMenu();
     }
 
@@ -55,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupActionBar() {
         setSupportActionBar(toolbar);
+
+        toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.logout, R.string.logout);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+
         View actionBarLayout = LayoutInflater.from(this).inflate(R.layout.layout_action_bar, null);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -65,6 +81,36 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setCustomView(actionBarLayout, params);
             actionBar.show();
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            toggleMenu();
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void toggleMenu() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 

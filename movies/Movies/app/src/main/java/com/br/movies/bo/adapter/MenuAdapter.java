@@ -1,6 +1,7 @@
 package com.br.movies.bo.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,18 +32,21 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     }
 
     public void addData(List<Menu> menuList) {
-        menuList.addAll(menuList);
+        this.menuList.addAll(menuList);
         notifyDataSetChanged();
     }
 
     @Override
     public MenuViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_menu, parent, false);
+        return new MenuViewHolder(itemView);
     }
+
 
     @Override
     public void onBindViewHolder(MenuViewHolder holder, int position) {
-
+        Menu menu = menuList.get(position);
+        holder.menuName.setText(menu.getName());
     }
 
     @Override
