@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.br.movies.R;
+import com.br.movies.domain.HomeCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +23,12 @@ import butterknife.ButterKnife;
 
 public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapter.HomeCategoryViewHolder> {
 
-    private List<String> cat;
+    private List<HomeCategory> cat;
     private Context context;
-    private List<String> values;
 
-    public HomeCategoryAdapter(List<String> cat, Context context) {
+    public HomeCategoryAdapter(List<HomeCategory> cat, Context context) {
         this.cat = cat;
         this.context = context;
-        values = new ArrayList<>();
-        for (int i = 0; i<15; i++) {
-            values.add("Categoria "+i);
-        }
     }
 
     @Override
@@ -43,8 +39,9 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     @Override
     public void onBindViewHolder(HomeCategoryViewHolder holder, int position) {
-        holder.txtName.setText(cat.get(position));
-        CategoryAdapter adapter = new CategoryAdapter(values);
+        HomeCategory category = cat.get(position);
+        holder.txtName.setText(category.getName());
+        CategoryAdapter adapter = new CategoryAdapter(category.getMovies());
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(mLayoutManager);

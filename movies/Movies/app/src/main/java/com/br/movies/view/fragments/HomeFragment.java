@@ -32,6 +32,8 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import com.br.movies.domain.HomeCategory;
 import com.google.gson.Gson;
 
 /**
@@ -63,16 +65,37 @@ public class HomeFragment extends Fragment {
 
 
     private void init() {
+        load();
         loadBanners();
         List<String> values = new ArrayList<>();
-        for (int i = 0; i<15; i++) {
-            values.add("Categoria "+i);
+    }
+
+    private void load() {
+        try {
+            MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_HOME_MOVIES, Request.Method.GET, new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    try {
+                        HomeCategory[] homeCategoryArray = new Gson().fromJson(result.getJSONArray("categories").toString(), HomeCategory[].class);
+                        List<HomeCategory> listHomeCategories = new ArrayList<HomeCategory>(Arrays.asList(homeCategoryArray));
+                        HomeCategoryAdapter adapter = new HomeCategoryAdapter(listHomeCategories, getActivity());
+                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(mLayoutManager);
+                        recyclerView.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String service, JSONObject error) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        HomeCategoryAdapter adapter = new HomeCategoryAdapter(values, getActivity());
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(adapter);
     }
 
     private void loadBanners() {

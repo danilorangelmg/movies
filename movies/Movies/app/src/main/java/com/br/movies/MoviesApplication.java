@@ -6,7 +6,9 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.br.movies.connect.LruBitmapCache;
 import com.br.movies.connect.PersistentCookieStore;
 import com.br.movies.connect.retrofit.ServiceRetrofit;
 import com.br.movies.connect.volley.ServiceUtil;
@@ -36,6 +38,7 @@ public class MoviesApplication extends Application {
     private OkHttpClient httpClient;
     private RequestQueue mRequestQueue;
     private CookieManager cookieManager;
+    private ImageLoader mImageLoader;
 
     public MoviesApplication() {
         instance = this;
@@ -56,7 +59,6 @@ public class MoviesApplication extends Application {
     public ServiceUtil getServiceUtil() {
         return serviceUtil;
     }
-
 
     @Override
     public void onCreate() {
@@ -89,7 +91,7 @@ public class MoviesApplication extends Application {
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(tag);
-        getRequestQueue().add(req).setRetryPolicy(new DefaultRetryPolicy(120000,
+        getRequestQueue().add(req).setRetryPolicy(new DefaultRetryPolicy(1200000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
@@ -134,6 +136,13 @@ public class MoviesApplication extends Application {
         protected HttpURLConnection createConnection(URL url) throws IOException {
             return mFactory.open(url);
         }
+    }
+
+    public ImageLoader getImageLoader() {
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache());
+        }
+        return this.mImageLoader;
     }
 
 }
