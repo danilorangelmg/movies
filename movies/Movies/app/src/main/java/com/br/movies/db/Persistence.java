@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.br.movies.exception.ValidationException;
+import com.br.movies.bo.exception.ValidationException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -15,6 +15,9 @@ public class ServiceUrl {
     public static final String GET_GENRES = "/genres"; //GET
     public static final String GET_BANNERS = "/lastedMovies/banners"; //GET
     public static final String GET_HOME_MOVIES = "/homeMovies";
+    public static final String GET_MOVIE_DETAIL = "/movies/detail/{{movie_id}}";
+    public static final String GET_SIMILAR_MOVIES = "/movies/similar/{{movie_id}}";
+    public static final String DO_LOGIN = "/login";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

@@ -1,4 +1,4 @@
-package com.br.movies.exception;
+package com.br.movies.bo.exception;
 
 /**
  * Created by danilo on 12/03/16.

@@ -29,6 +29,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
 
     private List<MovieSearch> values;
+    private OnMovieClick onMovieClick;
 
     public CategoryAdapter(List<MovieSearch> values) {
         MovieSearchComparator comparator = new MovieSearchComparator();
@@ -47,6 +48,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         //monta a view
         MovieSearch movieSearch = values.get(position);
         holder.imgPoster.setImageUrl(movieSearch.getPoster_path(), MoviesApplication.getApplication().getImageLoader());
+        onClickView(holder.itemView, movieSearch);
+
+    }
+
+    public void onClickView(View view, final MovieSearch movieSearch) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onMovieClick != null) {
+                    onMovieClick.onMovieClick(movieSearch);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,10 +73,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Bind(R.id.moviePoster)
         NetworkImageView imgPoster;
 
+        View itemView;
+
         public CategoryViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void setMovieClick(OnMovieClick onMovieClick) {
+        this.onMovieClick = onMovieClick;
     }
 
     private class MovieSearchComparator implements Comparator<MovieSearch> {
@@ -74,6 +95,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             return 0;
         }
 
+    }
+
+
+    public interface OnMovieClick {
+        public void onMovieClick(MovieSearch movieSearch);
     }
 
 

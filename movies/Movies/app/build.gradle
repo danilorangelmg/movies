@@ -37,4 +37,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'org.immutables:gson:2.1.0.alpha'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
+    compile 'com.android.support:support-v4:+'
 }

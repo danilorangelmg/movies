@@ -1,19 +1,18 @@
 package com.br.movies.view.activity;
 
+import android.Manifest;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.br.movies.R;
+import com.br.movies.bo.util.Util;
+import com.br.movies.bo.adapter.contract.SetUpActionBar;
 import com.br.movies.view.fragments.HomeFragment;
 import com.br.movies.view.fragments.MenuFragment;
 
@@ -24,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by danilorangel on 06/01/17.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SetUpActionBar {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
 
     private ActionBarDrawerToggle toggle;
+    private OnBackPressed onBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +40,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setupActionBar();
+        Util.checkPermission(this, new String[]{Manifest.permission.INTERNET});
+
         initFragment();
         initMenu();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onBackPressed != null) {
+            onBackPressed.onBack();
+        }
+        super.onBackPressed();
     }
 
     private void initFragment() {
         HomeFragment f = HomeFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_content, f)
+                .replace(R.id.main_content, f).addToBackStack(null)
+                .commitAllowingStateLoss();
+    }
+
+    public void replace(Fragment f) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, f).addToBackStack(null)
                 .commitAllowingStateLoss();
     }
 
@@ -63,55 +79,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
-        setSupportActionBar(toolbar);
-
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.logout, R.string.logout);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-
-        View actionBarLayout = LayoutInflater.from(this).inflate(R.layout.layout_action_bar, null);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
-                    ActionBar.LayoutParams.MATCH_PARENT,
-                    ActionBar.LayoutParams.MATCH_PARENT,
-                    Gravity.CENTER_HORIZONTAL);
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            actionBar.setCustomView(actionBarLayout, params);
-            actionBar.show();
-        }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        setupActionBarConfig(this, getSupportActionBar(), toolbar, drawer, toggle);
+        setupActionBar(this, getSupportActionBar(), true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            toggleMenu();
+            toggleMenu(drawer);
         }
 
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void toggleMenu() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            drawer.openDrawer(GravityCompat.START);
-        }
+
+    public void setOnBackPressed(OnBackPressed onBackPressed) {
+        this.onBackPressed = onBackPressed;
+    }
+
+    @Override
+    public void setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
+        Util.setupActionBar(activity, actionBar, enableHomeButton);
+    }
+
+    @Override
+    public void setupActionBarConfig(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, DrawerLayout drawer, ActionBarDrawerToggle toggle) {
+        Util.setupActionBarConfig(activity, actionBar, toolbar, drawer, toggle);
+    }
+
+    @Override
+    public void toggleMenu(DrawerLayout drawer) {
+        Util.toggleMenu(drawer);
+    }
+
+    public interface OnBackPressed {
+        public void onBack();
     }
 
 }

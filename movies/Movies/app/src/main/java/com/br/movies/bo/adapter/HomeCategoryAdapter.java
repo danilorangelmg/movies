@@ -25,6 +25,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     private List<HomeCategory> cat;
     private Context context;
+    private CategoryAdapter.OnMovieClick onMovieClick;
 
     public HomeCategoryAdapter(List<HomeCategory> cat, Context context) {
         this.cat = cat;
@@ -42,6 +43,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         HomeCategory category = cat.get(position);
         holder.txtName.setText(category.getName());
         CategoryAdapter adapter = new CategoryAdapter(category.getMovies());
+        adapter.setMovieClick(onMovieClick);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(mLayoutManager);
@@ -66,5 +68,9 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void setOnMovieClick(CategoryAdapter.OnMovieClick onMovieClick) {
+        this.onMovieClick = onMovieClick;
     }
 }

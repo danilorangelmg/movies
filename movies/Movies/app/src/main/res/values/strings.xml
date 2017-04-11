@@ -2,4 +2,21 @@
     <string name="app_name">Movies</string>
     <string name="profile">Meus dados</string>
     <string name="logout">Sair</string>
+    <string name="similar_movies">Filmes Parecidos</string>
+    <string name="rent_movie_button">Alugar</string>
+    <string name="rating">Avaliação</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="prompt_confirm_password">Confirme sua senha</string>
+    <string name="prompt_userName">Nome de Usuário</string>
+    <string name="action_sign_in">Entre ou registre</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="error_invalid_email">O e-mail utilizado é invalido</string>
+    <string name="error_invalid_password">O password é muito curto</string>
+    <string name="error_incorrect_password">Seu nome de usuário ou sua senha não correspondem</string>
+    <string name="error_field_required">Este campo é obrigatorio</string>
+
 </resources>
