@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 import com.br.movies.MoviesApplication;
 import com.br.movies.R;
@@ -158,7 +159,7 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
 
                 }
             });

@@ -1,4 +1,4 @@
-package com.br.movies.view;
+package com.br.movies.view.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;

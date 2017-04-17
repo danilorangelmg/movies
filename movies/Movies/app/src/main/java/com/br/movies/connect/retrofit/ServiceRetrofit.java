@@ -74,7 +74,7 @@ public class ServiceRetrofit {
                     try {
                         JSONObject obj = new JSONObject();
                         obj.put("error", t.getMessage());
-                        resultService.onError(service, obj);
+//                        resultService.onError(service, obj);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

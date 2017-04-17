@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.bo.adapter.MenuAdapter;
@@ -86,7 +87,7 @@ public class MenuFragment extends Fragment {
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
                     Toast.makeText(getActivity(), "Erro ao carregar Menus", Toast.LENGTH_SHORT).show();
                 }
             });

@@ -11,6 +11,6 @@ import org.json.JSONObject;
 public interface ResultService {
 
     public void onSucess(String service, JSONObject result);
-    public void onError(String service, JSONObject error);
+    public void onError(String service, VolleyError error);
 
 }

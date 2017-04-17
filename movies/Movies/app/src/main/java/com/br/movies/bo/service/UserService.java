@@ -44,12 +44,12 @@ public class UserService {
             new ServiceUtil(context).callService(ServiceUrl.DO_LOGIN, Request.Method.POST, param.toString(), new ResultService() {
                 @Override
                 public void onSucess(String service, JSONObject result) {
-                    onResponse.onSucess();
+                    onResponse.onSuccess();
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
-                    onResponse.onError(new VolleyError(error.toString()));
+                public void onError(String service, VolleyError error) {
+                    onResponse.onError(error);
                 }
             });
         } catch (Exception e) {
@@ -63,6 +63,35 @@ public class UserService {
 
     public void getUser() {
 
+    }
+
+    public void createUser(final Context context, final String user, final String password, String email, String name, final GenericResponse onResponse) {
+        try {
+            if (user == null || password == null || email == null || name == null
+                    ||user.trim().equals("") || password.trim().equals("") || email.trim().equals("") || name.trim().equals("")) {
+                return;
+            }
+
+            JSONObject request = new JSONObject();
+            request.put("name", name);
+            request.put("email", email);
+            request.put("username", user);
+            request.put("password", password);
+
+            new ServiceUtil(context).callService(ServiceUrl.NEW_USER, Request.Method.POST, request.toString(), new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    doLogin(context, user, password, onResponse);
+                }
+
+                @Override
+                public void onError(String service, VolleyError error) {
+                    onResponse.onError(error);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

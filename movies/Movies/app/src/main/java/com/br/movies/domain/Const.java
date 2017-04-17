@@ -7,7 +7,7 @@ package com.br.movies.domain;
 public class Const {
 
     public static final String DEFAULT_VOLLEY_TAG = "volley_tag";
-    public static final String BASE_URL = "http://192.168.1.11:5000";
+    public static final String BASE_URL = "http://192.168.1.7:5000";
     public static final String API_KEY = "d272326e467344029e68e3c4ff0b4059";
 
 }

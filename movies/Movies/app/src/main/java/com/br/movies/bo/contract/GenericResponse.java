@@ -8,7 +8,7 @@ import com.android.volley.VolleyError;
 
 public interface GenericResponse {
 
-    public void onSucess();
+    public void onSuccess();
     public void onError(VolleyError volleyError);
 
 }

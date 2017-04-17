@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.br.movies.MoviesApplication;
 import com.br.movies.bo.util.Util;
 import com.br.movies.connect.ResultService;
@@ -57,7 +58,7 @@ public class HomeService extends Service {
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
 
                 }
             });

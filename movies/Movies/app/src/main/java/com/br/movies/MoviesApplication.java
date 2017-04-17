@@ -69,9 +69,9 @@ public class MoviesApplication extends Application {
 //        serviceRetrofit = new ServiceRetrofit(getApplicationContext());
         serviceUtil = new ServiceUtil(getApplicationContext());
         initHttp();
-//        Intent intent = new Intent("HOME_SERVICE");
-//        intent.setPackage(this.getPackageName());
-//        startService(intent);
+        Intent intent = new Intent("HOME_SERVICE");
+        intent.setPackage(this.getPackageName());
+        startService(intent);
     }
 
     public void initHttp() {

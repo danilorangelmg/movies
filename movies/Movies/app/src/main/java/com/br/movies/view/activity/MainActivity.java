@@ -11,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.br.movies.R;
+import com.br.movies.bo.contract.SetUpActionBar;
 import com.br.movies.bo.util.Util;
-import com.br.movies.bo.adapter.contract.SetUpActionBar;
 import com.br.movies.view.fragments.HomeFragment;
 import com.br.movies.view.fragments.MenuFragment;
 

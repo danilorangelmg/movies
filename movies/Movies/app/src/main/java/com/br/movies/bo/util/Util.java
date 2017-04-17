@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.connect.ResultService;
@@ -83,7 +84,7 @@ public class Util {
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
 
                 }
             });
@@ -103,6 +104,9 @@ public class Util {
     public static void setupActionBarConfig(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, DrawerLayout drawer, ActionBarDrawerToggle toggle) {
         activity.setSupportActionBar(toolbar);
 
+        if (toggle == null) {
+            return;
+        }
         toggle = new ActionBarDrawerToggle(
                 activity, drawer, R.string.logout, R.string.logout);
         drawer.setDrawerListener(toggle);

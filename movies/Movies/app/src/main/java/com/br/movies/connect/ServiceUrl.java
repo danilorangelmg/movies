@@ -18,6 +18,9 @@ public class ServiceUrl {
     public static final String GET_MOVIE_DETAIL = "/movies/detail/{{movie_id}}";
     public static final String GET_SIMILAR_MOVIES = "/movies/similar/{{movie_id}}";
     public static final String DO_LOGIN = "/login";
+    public static final String NEW_USER = "/newUser";
+    public static final String GET_MOVIE_VALUE = "/movieValue";
+    public static final String NEW_OFFER = "/newOffer";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

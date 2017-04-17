@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.bo.adapter.CategoryAdapter;
@@ -91,7 +92,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
 
                 }
             });
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public void onError(String service, JSONObject error) {
+                public void onError(String service, VolleyError error) {
 
                 }
             });

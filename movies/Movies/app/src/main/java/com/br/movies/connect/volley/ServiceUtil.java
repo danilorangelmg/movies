@@ -15,6 +15,7 @@ import com.br.movies.domain.Const;
 import com.google.gson.Gson;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -138,9 +139,14 @@ public class ServiceUtil {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     if (networkResponse != null) {
-                        String result = new String(networkResponse.data);
-                        JSONObject responseError = new Gson().fromJson(result, JSONObject.class);
-                        resultService.onError(service, responseError);
+                        try {
+                            String result = new String(networkResponse.data);
+                            JSONObject responseError = new JSONObject(result);
+                            VolleyError errorM = new VolleyError(responseError.toString());
+                            resultService.onError(service, errorM);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     Log.i("SERVICE-VOLLEY", "ERRROR SERVICE - "+service);
