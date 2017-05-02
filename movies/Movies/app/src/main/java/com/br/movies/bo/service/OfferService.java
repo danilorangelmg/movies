@@ -94,7 +94,7 @@ public class OfferService {
         Map<String, Object> params = new HashMap<>();
         params.put("userId", SharedPersistence.getInstance().getUserId());
         try {
-            new ServiceUtil(context).callService(ServiceUrl.GET_OFFER_BY_USER, Request.Method.POST, params, new ResultService() {
+            new ServiceUtil(context).callService(ServiceUrl.GET_OFFER_BY_USER, Request.Method.GET, params, new ResultService() {
                 @Override
                 public void onSucess(String service, JSONObject result) {
                     Offer offer = new Gson().fromJson(result.toString(), Offer.class);
@@ -104,6 +104,27 @@ public class OfferService {
                 @Override
                 public void onError(String service, VolleyError error) {
                     onOfferResponse.onError(error);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeOffer(Context context, String offerId, final GenericResponse onResponse) {
+        try {
+            JSONObject payload = new JSONObject();
+            payload.put("offerId", offerId);
+            payload.put("userId", SharedPersistence.getInstance().getUserId());
+            new ServiceUtil(context).callService(ServiceUrl.CHANGE_OFFER, Request.Method.POST, payload.toString(), new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    onResponse.onSuccess();
+                }
+
+                @Override
+                public void onError(String service, VolleyError error) {
+                    onResponse.onError(error);
                 }
             });
         } catch (Exception e) {

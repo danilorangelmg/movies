@@ -67,6 +67,8 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
     private double movieValue;
     private int movieCount;
     private String price;
+    private boolean isEdit = false;
+    private Offer offer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,7 +154,9 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
     public void loadUserOffer() {
         OfferService.getInstance().getUserOffer(this, new OfferService.OnOfferResponse() {
             @Override
-            public void onSuccess(Offer offer) {
+            public void onSuccess(Offer offerResult) {
+                offer = offerResult;
+                isEdit = true;
                 populateValues(offer.getMovieCount());
             }
 
@@ -181,6 +185,21 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
     }
 
     public void sendOffer() {
+        if (isEdit) {
+            OfferService.getInstance().changeOffer(this, String.valueOf(offer.getOfferId()), new GenericResponse() {
+                @Override
+                public void onSuccess() {
+                    Intent intent = new Intent(OfferActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onError(VolleyError volleyError) {
+
+                }
+            });
+            return;
+        }
         OfferService.getInstance().sendNewOffer(this, movieCount, price, new OfferService.OnNewOfferResponse() {
             @Override
             public void onSuccess(String offerId) {

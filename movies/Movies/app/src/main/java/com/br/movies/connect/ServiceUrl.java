@@ -23,8 +23,9 @@ public class ServiceUrl {
     public static final String NEW_OFFER = "/newOffer";
     public static final String BUY = "/buy";
     public static final String RENT = "/rent";
-    public static final String GET_OFFER_BY_USER = "/rent/user/{{userId}}";
+    public static final String GET_OFFER_BY_USER = "/offerUser/{{userId}}";
     public static final String DO_LOGOUT = "/logout";
+    public static final String CHANGE_OFFER = "/changeOffer";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");
