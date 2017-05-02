@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
             UserService.getInstance().doLogin(this, user, password, new GenericResponse() {
                 @Override
                 public void onSuccess() {
-                    loadOffer();
+                    loadHome();
                 }
 
                 @Override

@@ -12,6 +12,8 @@
     <string name="offerConfirm">Confirmar e Prosseguir</string>
     <string name="acceptOffer">Aceito todos os termos e condições </string>
     <string name="offerMovieLabel">O valor do seu plano será R$</string>
+    <string name="rentMovie">Adicionar a sua lista</string>
+    <string name="rented">Adicionado</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

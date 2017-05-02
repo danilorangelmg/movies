@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.br.movies.R;
+import com.br.movies.bo.contract.OnItemClickListener;
 import com.br.movies.domain.Menu;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
 
     private List<Menu> menuList;
+    private OnItemClickListener<Menu> onItemClickListener;
 
     public MenuAdapter(List<Menu> menuList) {
         this.menuList = menuList;
@@ -45,8 +47,16 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @Override
     public void onBindViewHolder(MenuViewHolder holder, int position) {
-        Menu menu = menuList.get(position);
+        final Menu menu = menuList.get(position);
         holder.menuName.setText(menu.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(menu);
+                }
+            }
+        });
     }
 
     @Override
@@ -54,13 +64,25 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         return menuList.size();
     }
 
+
+    public OnItemClickListener<Menu> getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<Menu> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class MenuViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.txtMenuSectionName)
         TextView menuName;
 
+        View itemView;
+
         public MenuViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             ButterKnife.bind(this, itemView);
         }
     }

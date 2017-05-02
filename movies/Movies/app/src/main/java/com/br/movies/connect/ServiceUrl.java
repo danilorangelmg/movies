@@ -21,6 +21,10 @@ public class ServiceUrl {
     public static final String NEW_USER = "/newUser";
     public static final String GET_MOVIE_VALUE = "/movieValue";
     public static final String NEW_OFFER = "/newOffer";
+    public static final String BUY = "/buy";
+    public static final String RENT = "/rent";
+    public static final String GET_OFFER_BY_USER = "/rent/user/{{userId}}";
+    public static final String DO_LOGOUT = "/logout";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

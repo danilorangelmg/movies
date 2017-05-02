@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.br.movies.R;
+import com.br.movies.bo.util.SharedPersistence;
+import com.br.movies.view.components.MovieProgressView;
 
 
 public class SplashActivity extends Activity {
@@ -18,20 +20,20 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(5000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
+        final MovieProgressView view = (MovieProgressView) findViewById(R.id.movieView);
+        view.setProgress(200, new MovieProgressView.OnProgressFinish() {
+            @Override
+            public void onFinish() {
+                Intent intent = null;
+                if (!SharedPersistence.getInstance().getUserId().equals("")) {
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                 }
-            }
-        };
-        timerThread.start();
 
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -5,10 +5,12 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.br.movies.bo.contract.GenericResponse;
+import com.br.movies.bo.util.SharedPersistence;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.connect.volley.ServiceUtil;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -44,7 +46,13 @@ public class UserService {
             new ServiceUtil(context).callService(ServiceUrl.DO_LOGIN, Request.Method.POST, param.toString(), new ResultService() {
                 @Override
                 public void onSucess(String service, JSONObject result) {
-                    onResponse.onSuccess();
+                    try {
+                        String userId = result.getString("userId");
+                        SharedPersistence.getInstance().saveUserId(userId);
+                        onResponse.onSuccess();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -57,8 +65,22 @@ public class UserService {
         }
     }
 
-    public void doLogout() {
+    public void doLogout(Context context, final GenericResponse onResponse) {
+        try {
+            new ServiceUtil(context).callService(ServiceUrl.DO_LOGOUT, Request.Method.POST, new JSONObject().toString(), new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    onResponse.onSuccess();
+                }
 
+                @Override
+                public void onError(String service, VolleyError error) {
+                    onResponse.onError(error);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void getUser() {

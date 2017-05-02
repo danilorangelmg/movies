@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.bo.adapter.CategoryAdapter;
+import com.br.movies.bo.contract.GenericResponse;
+import com.br.movies.bo.service.RentService;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.domain.Movie;
@@ -28,6 +31,7 @@ import com.br.movies.domain.Movie;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import com.br.movies.domain.MovieSearch;
 import com.br.movies.bo.util.Util;
@@ -93,6 +97,12 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
     @Bind(R.id.rating)
     TextView txtRating;
 
+    @Bind(R.id.btnRent)
+    CardView btnRent;
+
+    @Bind(R.id.txtRent)
+    TextView txtRent;
+
     public static MovieDetailFragment newInstance(String movie) {
         MovieDetailFragment fragment = new MovieDetailFragment();
         Bundle bundle = new Bundle();
@@ -134,6 +144,22 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
         txtRating.setText(movie.getPopularity());
         mAppBarLayout.addOnOffsetChangedListener(this);
         loadRating(0d);
+    }
+
+    @OnClick(R.id.btnRent)
+    public void rentMovie() {
+        RentService.getInstance().doRent(getActivity(), String.valueOf(movie.getId()), new GenericResponse() {
+            @Override
+            public void onSuccess() {
+                btnRent.setEnabled(false);
+                txtRent.setText(R.string.rented);
+            }
+
+            @Override
+            public void onError(VolleyError volleyError) {
+
+            }
+        });
     }
 
     private void loadSimilarMovies(String id) {
