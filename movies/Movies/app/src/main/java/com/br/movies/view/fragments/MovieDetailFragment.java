@@ -134,6 +134,12 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setOnBackPressed(this);
+    }
+
     private void init() {
         loadSimilarMovies(String.valueOf(movie.getId()));
         imgPoster.setImageUrl(movie.getBackdrop_path(), MoviesApplication.getApplication().getImageLoader());
@@ -272,6 +278,6 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
 
     @Override
     public void onBack() {
-        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getSupportFragmentManager().popBackStack(String.valueOf(movie.getId()), 0);
     }
 }

@@ -173,6 +173,7 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
         }
         movieCount = qtd;
         txtMovieValue.setTextValue(String.valueOf(qtd));
+        txtOfferValue.requestFocus();
         Double valuePlan = movieValue * qtd;
         BigDecimal bigDecimal = new BigDecimal(valuePlan);
         price = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_EVEN).toString();

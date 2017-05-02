@@ -70,7 +70,7 @@ public class Util {
         }
     }
 
-    public static void loadDetail(final Context context, int id, final boolean isVisible) {
+    public static void loadDetail(final Context context, final int id, final boolean isVisible) {
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("movie_id",String.valueOf(id));
@@ -79,7 +79,7 @@ public class Util {
                 @Override
                 public void onSucess(String service, JSONObject result) {
                     if (isVisible && context != null) {
-                        ((MainActivity)context).replace(MovieDetailFragment.newInstance(result.toString()));
+                        ((MainActivity)context).replace(MovieDetailFragment.newInstance(result.toString()), String.valueOf(id));
                     }
                 }
 
@@ -129,7 +129,7 @@ public class Util {
         if (enableHomeButton) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
+//            actionBar.setHomeButtonEnabled(true);
         }
 
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    private ActionBarDrawerToggle toggle;
+//    private ActionBarDrawerToggle toggle;
     private OnBackPressed onBackPressed;
 
     @Override
@@ -39,7 +39,13 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setupActionBar();
+//        setupActionBar();
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.logout, R.string.logout);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        toggle.setDrawerIndicatorEnabled(true);
         Util.checkPermission(this, new String[]{Manifest.permission.INTERNET});
 
         initFragment();
@@ -67,6 +73,12 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
                 .commitAllowingStateLoss();
     }
 
+    public void replace(Fragment f, String tag) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, f).addToBackStack(tag)
+                .commitAllowingStateLoss();
+    }
+
     private void initMenu() {
         MenuFragment fragment = MenuFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
@@ -78,10 +90,10 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
                 .commitAllowingStateLoss();
     }
 
-    private void setupActionBar() {
-        setupActionBarConfig(this, getSupportActionBar(), toolbar, drawer, toggle);
-        setupActionBar(this, getSupportActionBar(), true);
-    }
+//    private void setupActionBar() {
+//        setupActionBarConfig(this, getSupportActionBar(), toolbar, drawer, toggle);
+//        setupActionBar(this, getSupportActionBar(), true);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
