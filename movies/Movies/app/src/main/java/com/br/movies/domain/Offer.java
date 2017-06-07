@@ -11,6 +11,7 @@ public class Offer {
     private double movieValue;
     private double price;
     private int countMovie;
+    private int countMovies; //avaliar mudar o nomes;
 
     public int getOfferId() {
         return offerId;
@@ -50,5 +51,13 @@ public class Offer {
 
     public void setCountMovie(int countMovie) {
         this.countMovie = countMovie;
+    }
+
+    public int getCountMovies() {
+        return countMovies;
+    }
+
+    public void setCountMovies(int countMovies) {
+        this.countMovies = countMovies;
     }
 }

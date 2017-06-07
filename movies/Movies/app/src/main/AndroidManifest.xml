@@ -43,6 +43,10 @@
             android:name=".view.activity.OfferActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".view.activity.UserPlanActivity"
+            android:screenOrientation="portrait" />
+
         <service android:name=".service.HomeService">
             <intent-filter>
                 <action android:name="HOME_SERVICE" />

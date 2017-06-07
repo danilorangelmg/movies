@@ -9,12 +9,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.br.movies.R;
 import com.br.movies.bo.contract.SetUpActionBar;
 import com.br.movies.bo.util.Util;
 import com.br.movies.view.fragments.HomeFragment;
 import com.br.movies.view.fragments.MenuFragment;
+import com.br.movies.view.fragments.SearchFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,8 +36,11 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
 
-//    private ActionBarDrawerToggle toggle;
+
+    private ActionBarDrawerToggle toggle;
+    private SearchView searchView;
     private OnBackPressed onBackPressed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
         ButterKnife.bind(this);
 //        setupActionBar();
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.logout, R.string.logout);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -50,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
 
         initFragment();
         initMenu();
+        setupActionBar();
     }
 
     @Override
@@ -111,9 +120,63 @@ public class MainActivity extends AppCompatActivity implements SetUpActionBar {
         this.onBackPressed = onBackPressed;
     }
 
+    private void setupActionBar() {
+        setupActionBarConfig(MainActivity.this, getSupportActionBar(), toolbar, drawer, toggle);
+        setupActionBar(MainActivity.this, getSupportActionBar(), false);
+    }
+
     @Override
     public void setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
-        Util.setupActionBar(activity, actionBar, enableHomeButton);
+        View actionBarLayout = Util.setupActionBar(activity, actionBar, enableHomeButton);
+
+        final TextView labelTitle = (TextView) actionBarLayout.findViewById(R.id.actionTitle);
+        labelTitle.setText("FILMES");
+
+        searchView = (SearchView) actionBarLayout.findViewById(R.id.searchView);
+        searchView.setQueryHint("Informe o filme...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchFragment fragment = SearchFragment.newInstance(query, false);
+                replace(fragment);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                labelTitle.setVisibility(View.GONE);
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                labelTitle.setVisibility(View.GONE);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                labelTitle.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        ImageView homeButton = (ImageView) actionBarLayout.findViewById(R.id.homeMenuButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleMenu(drawer);
+            }
+        });
     }
 
     @Override

@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+    android:gravity="center"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+    <!--<LinearLayout-->
+    <!--android:id="@+id/actionbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_gravity="right"-->
+    <!--android:layout_height="?attr/actionBarSize">-->
+
+    <ImageView
+        android:id="@+id/homeMenuButton"
+        android:layout_width="wrap_content"
+        android:src="@drawable/hamb_menu"
+        android:layout_gravity="left|center_vertical"
+        android:paddingRight="5dp"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/actionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="NOME DA TELA" />
 
 
-        <SearchView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:animationCache="true"
-            android:visibility="gone" />
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_weight="1"
+        android:animationCache="true"
+        android:visibility="visible" />
 
-    </LinearLayout>
 
-</RelativeLayout>
+    <!--</LinearLayout>-->
+
+</LinearLayout>

@@ -13,6 +13,7 @@ public class ServiceUrl {
 //    public static final String GET_MOVIES = "/?plot=full&&s={{title}}";
 
     public static final String GET_GENRES = "/genres"; //GET
+    public static final String GET_GENRES_ID = "/genres/{{id}}"; //GET
     public static final String GET_BANNERS = "/lastedMovies/banners"; //GET
     public static final String GET_HOME_MOVIES = "/homeMovies";
     public static final String GET_MOVIE_DETAIL = "/movies/detail/{{movie_id}}";
@@ -26,6 +27,7 @@ public class ServiceUrl {
     public static final String GET_OFFER_BY_USER = "/offerUser/{{userId}}";
     public static final String DO_LOGOUT = "/logout";
     public static final String CHANGE_OFFER = "/changeOffer";
+    public static final String SEARCH_BY_NAME = "/movies/{{name}}";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

@@ -113,7 +113,7 @@ public class Util {
         toggle.syncState();
     }
 
-    public static void setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
+    public static View setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
 
         View actionBarLayout = LayoutInflater.from(activity).inflate(R.layout.layout_action_bar, null);
         if (actionBar != null) {
@@ -138,6 +138,8 @@ public class Util {
 //
 //            }
 //        });
+
+        return actionBarLayout;
     }
 
     public static void toggleMenu(DrawerLayout drawer) {

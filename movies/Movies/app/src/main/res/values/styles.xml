@@ -39,5 +39,8 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="WhiteSearchView" parent="Base.Widget.AppCompat.SearchView">
+        <item name="android:color">@color/white</item>
+    </style>
 
 </resources>

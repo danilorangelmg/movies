@@ -18,16 +18,17 @@ import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.bo.adapter.MenuAdapter;
 import com.br.movies.bo.contract.GenericResponse;
+import com.br.movies.bo.contract.MenuClickListener;
 import com.br.movies.bo.contract.OnItemClickListener;
 import com.br.movies.bo.service.UserService;
 import com.br.movies.bo.util.SharedPersistence;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
-import com.br.movies.domain.Const;
 import com.br.movies.domain.Menu;
 import com.br.movies.view.activity.LoginActivity;
 import com.br.movies.view.activity.MainActivity;
 import com.br.movies.view.activity.OfferActivity;
+import com.br.movies.view.activity.UserPlanActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -39,7 +40,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,10 +79,7 @@ public class MenuFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener<Menu>() {
             @Override
             public void onItemClick(Menu menu) {
-                if (menu.getName().equals("Plano")) {
-                    Intent intent = new Intent(((MainActivity)getActivity()), OfferActivity.class);
-                    startActivity(intent);
-                }
+                menu.getOnClick().onMenuClick(menu);
             }
         });
 
@@ -97,7 +94,7 @@ public class MenuFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         SharedPersistence.getInstance().clearAll();
-                        Intent intent = new Intent(((MainActivity)getActivity()), LoginActivity.class);
+                        Intent intent = new Intent(((MainActivity) getActivity()), LoginActivity.class);
                         startActivity(intent);
                     }
 
@@ -114,9 +111,17 @@ public class MenuFragment extends Fragment {
         Map<String, Object> params = new HashMap<>();
 //        params.put("api_key", Const.API_KEY);
         final List<Menu> menus = new ArrayList<>();
+
         Menu menu = new Menu();
         menu.setName("Plano");
+        menu.setOnClick(planClickListener);
         menus.add(menu);
+
+        menu = new Menu();
+        menu.setName("Utilização");
+        menu.setOnClick(usageMenuClick);
+        menus.add(menu);
+
         try {
             MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_GENRES, Request.Method.GET, params, new ResultService() {
                 @Override
@@ -126,6 +131,11 @@ public class MenuFragment extends Fragment {
                         Gson gson = new Gson();
                         Menu[] menuArray = gson.fromJson(genres.toString(), Menu[].class);
                         menus.addAll(Arrays.asList(menuArray));
+                        for (Menu menu : menus) {
+                            if (menu.getOnClick() == null) {
+                                menu.setOnClick(defaultMenuClick);
+                            }
+                        }
                         adapter.addData(menus);
                         menuList.setAdapter(adapter);
                     } catch (JSONException e) {
@@ -143,6 +153,31 @@ public class MenuFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private MenuClickListener defaultMenuClick = new MenuClickListener() {
+
+        @Override
+        public void onMenuClick(Menu menu) {
+            SearchFragment fragment = SearchFragment.newInstance(String.valueOf(menu.getId()), false);
+            ((MainActivity) getActivity()).replace(fragment);
+        }
+    };
+
+    private MenuClickListener usageMenuClick = new MenuClickListener() {
+        @Override
+        public void onMenuClick(Menu menu) {
+            Intent intent = new Intent(((MainActivity) getActivity()), UserPlanActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    private MenuClickListener planClickListener = new MenuClickListener() {
+        @Override
+        public void onMenuClick(Menu menu) {
+            Intent intent = new Intent(((MainActivity) getActivity()), OfferActivity.class);
+            startActivity(intent);
+        }
+    };
 
 
 }
