@@ -112,16 +112,27 @@ public class MenuFragment extends Fragment {
 //        params.put("api_key", Const.API_KEY);
         final List<Menu> menus = new ArrayList<>();
 
-        Menu menu = new Menu();
-        menu.setName("Plano");
-        menu.setOnClick(planClickListener);
-        menus.add(menu);
+        if (!SharedPersistence.getInstance().getUserId().equals("")) {
+            Menu menu = new Menu();
+            menu.setName("Plano");
+            menu.setOnClick(planClickListener);
+            menus.add(menu);
 
-        menu = new Menu();
-        menu.setName("Utilização");
-        menu.setOnClick(usageMenuClick);
-        menus.add(menu);
+            menu = new Menu();
+            menu.setName("Utilização");
+            menu.setOnClick(usageMenuClick);
+            menus.add(menu);
 
+            menu = new Menu();
+            menu.setName("Compras");
+            menu.setOnClick(buyClickListener);
+            menus.add(menu);
+
+            menu = new Menu();
+            menu.setName("Minha Lista");
+            menu.setOnClick(myListClickListener);
+            menus.add(menu);
+        }
         try {
             MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_GENRES, Request.Method.GET, params, new ResultService() {
                 @Override
@@ -176,6 +187,20 @@ public class MenuFragment extends Fragment {
         public void onMenuClick(Menu menu) {
             Intent intent = new Intent(((MainActivity) getActivity()), OfferActivity.class);
             startActivity(intent);
+        }
+    };
+
+    private MenuClickListener buyClickListener = new MenuClickListener() {
+        @Override
+        public void onMenuClick(Menu menu) {
+            ((MainActivity)getActivity()).replace(InformationFragment.newInstance(true));
+        }
+    };
+
+    private MenuClickListener myListClickListener = new MenuClickListener() {
+        @Override
+        public void onMenuClick(Menu menu) {
+            ((MainActivity)getActivity()).replace(InformationFragment.newInstance(false));
         }
     };
 

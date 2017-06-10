@@ -1,7 +1,8 @@
 package com.br.movies.view.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -19,7 +20,13 @@ import butterknife.ButterKnife;
  * Created by danilorangel on 03/05/17.
  */
 
-public class UserPlanActivity extends AppCompatActivity {
+public class UserPlanActivity extends BaseActivity {
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
 
     @Bind(R.id.txtPlanInformation)
     TextView txtPlanInformation;
@@ -39,6 +46,8 @@ public class UserPlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan_usage);
         ButterKnife.bind(this);
         loadUserOffer();
+        setupActionBar(toolbar, drawer, "Consumo");
+        hideMenus();
     }
 
     private void loadUserOffer() {

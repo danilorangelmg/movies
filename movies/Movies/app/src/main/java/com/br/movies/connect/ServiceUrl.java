@@ -28,6 +28,8 @@ public class ServiceUrl {
     public static final String DO_LOGOUT = "/logout";
     public static final String CHANGE_OFFER = "/changeOffer";
     public static final String SEARCH_BY_NAME = "/movies/{{name}}";
+    public static final String GET_BUY = "/buy/user/{{userId}}";
+    public static final String GET_RENTS = "/rent/{{userId}}";
 
     static {
 //        retrofitServices.put(GET_MOVIES, "getMoviesList");

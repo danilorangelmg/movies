@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +17,8 @@ import com.android.volley.VolleyError;
 import com.br.movies.R;
 import com.br.movies.bo.contract.GenericResponse;
 import com.br.movies.bo.contract.OfferResponse;
-import com.br.movies.bo.contract.SetUpActionBar;
 import com.br.movies.bo.service.BuyService;
 import com.br.movies.bo.service.OfferService;
-import com.br.movies.bo.util.Util;
 import com.br.movies.domain.Offer;
 import com.br.movies.view.components.ValueEditText;
 
@@ -41,7 +35,7 @@ import butterknife.OnClick;
  * Created by danilorangel on 16/04/17.
  */
 
-public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
+public class OfferActivity extends BaseActivity {
 
     @Bind(R.id.drawer_offer_layout)
     DrawerLayout drawer;
@@ -79,11 +73,12 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
 
     public void init() {
         ButterKnife.bind(this);
-        setupActionBar();
         loadMovieValue();
         initSeekBar();
         initMovieTextView();
         loadUserOffer();
+        setupActionBar(toolbar, drawer, "Configuração de plano");
+        hideMenus();
     }
 
     private void initSeekBar() {
@@ -230,24 +225,4 @@ public class OfferActivity extends AppCompatActivity implements SetUpActionBar {
 
     }
 
-    public void setupActionBar() {
-        setupActionBarConfig(this, getSupportActionBar(), toolbar, drawer, null);
-        setupActionBar(this, getSupportActionBar(), false);
-    }
-
-    @Override
-    public void setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
-        Util.setupActionBar(activity, actionBar, enableHomeButton);
-    }
-
-    @Override
-    public void setupActionBarConfig(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, DrawerLayout drawer, ActionBarDrawerToggle toggle) {
-        Util.setupActionBarConfig(activity, actionBar, toolbar, drawer, toggle);
-
-    }
-
-    @Override
-    public void toggleMenu(DrawerLayout drawer) {
-        //nao faz nada
-    }
 }

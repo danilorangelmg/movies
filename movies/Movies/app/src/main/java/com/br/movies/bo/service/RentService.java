@@ -9,11 +9,17 @@ import com.br.movies.bo.util.SharedPersistence;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.connect.volley.ServiceUtil;
+import com.br.movies.domain.Rent;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import retrofit2.http.POST;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by danilorangel on 22/04/17.
@@ -60,8 +66,38 @@ public class RentService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void getUserRent(Context context, String userId, final OnTakeRent onTakeRent) {
+        try {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("userId", userId);
+            new ServiceUtil(context).callService(ServiceUrl.GET_RENTS, Request.Method.GET, params, new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    try {
+                        JSONArray array = result.getJSONArray("array");
+                        Rent[] rent = new Gson().fromJson(array.toString(), Rent[].class);
+                        List<Rent> rentList = new ArrayList<Rent>(Arrays.asList(rent));
+                        onTakeRent.onSucess(rentList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                @Override
+                public void onError(String service, VolleyError error) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public interface OnTakeRent {
+        public void onSucess(List<Rent> rentList);
+        public void onError(VolleyError error);
     }
 
 

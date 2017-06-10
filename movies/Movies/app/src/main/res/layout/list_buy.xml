@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="150dp"
     android:orientation="vertical">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="5dp">
+        android:gravity="center"
+        android:paddingLeft="15dp">
 
         <TableRow>
 
@@ -20,12 +21,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
-                    android:text="@string/data_list_buy" />
+                    android:text="@string/data_list_buy"
+                    android:textSize="@dimen/medium_padding"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_data_buy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_padding" />
 
             </LinearLayout>
         </TableRow>
@@ -41,12 +45,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
-                    android:text="@string/value_list_buy" />
+                    android:text="@string/value_list_buy"
+                    android:textSize="@dimen/medium_padding"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_value_buy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_padding" />
             </LinearLayout>
         </TableRow>
 
@@ -61,12 +68,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
-                    android:text="@string/type_list_buy" />
+                    android:text="@string/type_list_buy"
+                    android:textSize="@dimen/medium_padding"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_type_buy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_padding" />
             </LinearLayout>
         </TableRow>
     </TableLayout>

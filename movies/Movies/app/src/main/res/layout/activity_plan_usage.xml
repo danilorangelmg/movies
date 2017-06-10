@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/gray"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/txtPlanInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/planUser"
-        android:textSize="@dimen/title_padding" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtDaysInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/planUserDays"
-        android:textSize="@dimen/minimum_padding" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/txtMovieInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/planUserMovie"
-        android:textSize="@dimen/medium_padding" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <com.br.movies.view.components.MovieProgressView
-        android:id="@+id/progressUsage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+            <TextView
+                android:id="@+id/txtPlanInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/planUser"
+                android:textSize="@dimen/title_padding" />
 
+            <TextView
+                android:id="@+id/txtDaysInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/planUserDays"
+                android:textSize="@dimen/minimum_padding" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/txtMovieInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/planUserMovie"
+                android:textSize="@dimen/medium_padding" />
+
+            <com.br.movies.view.components.MovieProgressView
+                android:id="@+id/progressUsage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

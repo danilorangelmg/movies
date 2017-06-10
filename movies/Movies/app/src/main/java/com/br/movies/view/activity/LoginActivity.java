@@ -4,9 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,13 +23,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import com.br.movies.bo.contract.SetUpActionBar;
-
 /**
  * Created by danilorangel on 03/04/17.
  */
 
-public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
+public class LoginActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -74,10 +70,10 @@ public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        setupActionBar();
         Util.checkPermission(this, new String[]{Manifest.permission.INTERNET});
 
-        setupActionBar();
+        setupActionBar(toolbar, drawer, "Login");
+        hideMenus();
     }
 
     @OnClick(R.id.btnSignIn)
@@ -124,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
                         containerEmail.setVisibility(View.VISIBLE);
                         containerName.setVisibility(View.VISIBLE);
                         isNewUser = true;
+                        setScreenName("Cadastro de Usuário");
                     } else {
                         Toast.makeText(getApplicationContext(), "Usuário ou senha invalidos", Toast.LENGTH_LONG).show();
                     }
@@ -139,7 +136,8 @@ public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
     }
 
     public void loadOffer() {
-        Intent intent = new Intent(LoginActivity.this, ExplainActivity.class);
+//        Intent intent = new Intent(LoginActivity.this, ExplainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, OfferActivity.class);
         startActivity(intent);
         finish();
     }
@@ -190,25 +188,4 @@ public class LoginActivity extends AppCompatActivity implements SetUpActionBar {
         return true;
     }
 
-
-
-    private void setupActionBar() {
-        setupActionBarConfig(LoginActivity.this, getSupportActionBar(), toolbar, drawer, toggle);
-        setupActionBar(LoginActivity.this, getSupportActionBar(), false);
-    }
-
-    @Override
-    public void setupActionBar(AppCompatActivity activity, ActionBar actionBar, boolean enableHomeButton) {
-        Util.setupActionBar(activity, actionBar, enableHomeButton);
-    }
-
-    @Override
-    public void setupActionBarConfig(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, DrawerLayout drawer, ActionBarDrawerToggle toggle) {
-        Util.setupActionBarConfig(activity, actionBar, toolbar, drawer, toggle);
-    }
-
-    @Override
-    public void toggleMenu(DrawerLayout drawer) {
-        Util.toggleMenu(drawer);
-    }
 }

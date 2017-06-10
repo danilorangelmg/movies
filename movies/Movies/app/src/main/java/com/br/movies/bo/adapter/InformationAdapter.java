@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.br.movies.MoviesApplication;
 import com.br.movies.R;
 import com.br.movies.domain.Buy;
+import com.br.movies.domain.Rent;
 
 import java.util.List;
 
@@ -31,11 +33,11 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         View itemView = null;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (buy) {
-            itemView= inflater.inflate(R.layout.list_category_item_horizontal, parent, false);
+            itemView= inflater.inflate(R.layout.list_buy, parent, false);
         } else {
-            itemView= inflater.inflate(R.layout.list_category_item_horizontal, parent, false);
+            itemView= inflater.inflate(R.layout.list_search, parent, false);
         }
-        return null;
+        return new InformationViewHolder(itemView, buy);
     }
 
     @Override
@@ -51,12 +53,13 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         Buy buy = (Buy) information.get(position);
         holder.txtData.setText(buy.getFormattedDate());
         holder.txtValue.setText(buy.getPrice());
-        String type = buy.isAtive() ? "Plano Adicional" : "Plano";
+        String type = buy.isAtive() ? "Plano" : "Plano Adicional";
         holder.txtType.setText(type);
     }
 
     public void onBindRent(InformationViewHolder holder, int position) {
-
+        Rent rent = (Rent) information.get(position);
+        holder.imgPoster.setImageUrl(rent.getMovie().getPoster_path(), MoviesApplication.getApplication().getImageLoader());
     }
 
     @Override
