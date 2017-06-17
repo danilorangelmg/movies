@@ -22,6 +22,7 @@ import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
 
@@ -69,9 +70,7 @@ public class MoviesApplication extends Application {
 //        serviceRetrofit = new ServiceRetrofit(getApplicationContext());
         serviceUtil = new ServiceUtil(getApplicationContext());
         initHttp();
-        Intent intent = new Intent("HOME_SERVICE");
-        intent.setPackage(this.getPackageName());
-        startService(intent);
+        startHomeService();
     }
 
     public void initHttp() {
@@ -79,6 +78,7 @@ public class MoviesApplication extends Application {
         cookieManager = new CookieManager(new PersistentCookieStore(getApplicationContext()), CookiePolicy.ACCEPT_ALL);
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         httpClient.setCookieHandler(cookieManager);
+        httpClient.setConnectTimeout(10000, TimeUnit.SECONDS);
     }
 
     public RequestQueue getRequestQueue() {
@@ -147,6 +147,12 @@ public class MoviesApplication extends Application {
             mImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache());
         }
         return this.mImageLoader;
+    }
+
+    public void startHomeService() {
+        Intent intent = new Intent("HOME_SERVICE");
+        intent.setPackage(this.getPackageName());
+        startService(intent);
     }
 
 }

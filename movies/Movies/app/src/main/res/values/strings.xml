@@ -33,5 +33,7 @@
     <string name="error_incorrect_password">Seu nome de usuário ou sua senha não correspondem</string>
     <string name="error_field_required">Este campo é obrigatorio</string>
     <string name="prompt_name">Nome</string>
+    <string name="offer_dialog_title">Selecione o plano adicional de sua preferencia.</string>
+    <string name="offer_valid_days">Plano válido por 30 dias</string>
 
 </resources>

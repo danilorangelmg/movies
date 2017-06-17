@@ -12,6 +12,7 @@ public class Offer {
     private double price;
     private int countMovie;
     private int countMovies; //avaliar mudar o nomes;
+    private int maxMovie;
 
     public int getOfferId() {
         return offerId;
@@ -59,5 +60,13 @@ public class Offer {
 
     public void setCountMovies(int countMovies) {
         this.countMovies = countMovies;
+    }
+
+    public int getMaxMovie() {
+        return maxMovie;
+    }
+
+    public void setMaxMovies(int maxMovie) {
+        this.maxMovie = maxMovie;
     }
 }

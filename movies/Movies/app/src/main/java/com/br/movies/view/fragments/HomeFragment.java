@@ -17,12 +17,13 @@ import com.br.movies.R;
 import com.br.movies.bo.adapter.CategoryAdapter;
 import com.br.movies.bo.adapter.HomeBannerAdapter;
 import com.br.movies.bo.adapter.HomeCategoryAdapter;
+import com.br.movies.bo.util.Util;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.domain.Banner;
 import com.br.movies.domain.HomeCategory;
 import com.br.movies.domain.MovieSearch;
-import com.br.movies.bo.util.Util;
+import com.br.movies.view.activity.MainActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -58,11 +59,15 @@ public class HomeFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-
         init();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setScreenName("MOVIES");
+    }
 
     private void init() {
         load();

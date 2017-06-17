@@ -1,5 +1,6 @@
 package com.br.movies.view.fragments;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -24,18 +25,15 @@ import com.br.movies.R;
 import com.br.movies.bo.adapter.CategoryAdapter;
 import com.br.movies.bo.contract.GenericResponse;
 import com.br.movies.bo.service.RentService;
+import com.br.movies.bo.util.SharedPersistence;
+import com.br.movies.bo.util.Util;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.domain.Movie;
-
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 import com.br.movies.domain.MovieSearch;
-import com.br.movies.bo.util.Util;
+import com.br.movies.domain.Rent;
 import com.br.movies.view.activity.MainActivity;
+import com.br.movies.view.components.DialogPlan;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -47,6 +45,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by danilorangel on 01/04/17.
@@ -150,6 +152,7 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
         txtRating.setText(movie.getPopularity());
         mAppBarLayout.addOnOffsetChangedListener(this);
         loadRating(0d);
+        verifyMovie();
     }
 
     @OnClick(R.id.btnRent)
@@ -157,13 +160,14 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
         RentService.getInstance().doRent(getActivity(), String.valueOf(movie.getId()), new GenericResponse() {
             @Override
             public void onSuccess() {
-                btnRent.setEnabled(false);
-                txtRent.setText(R.string.rented);
+                modifyButton();
             }
 
             @Override
             public void onError(VolleyError volleyError) {
-
+                FragmentManager fm = getActivity().getFragmentManager();
+                DialogPlan dialogFragment = new DialogPlan ();
+                dialogFragment.show(fm, "Dialog Fragment");
             }
         });
     }
@@ -198,6 +202,11 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void modifyButton() {
+        btnRent.setEnabled(false);
+        txtRent.setText(R.string.rented);
     }
 
     private CategoryAdapter.OnMovieClick similarMovieOnClick() {
@@ -278,6 +287,22 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
 
     @Override
     public void onBack() {
+        ((MainActivity)getActivity()).setHomeButton();
         getActivity().getSupportFragmentManager().popBackStack(String.valueOf(movie.getId()), 0);
+        ((MainActivity)getActivity()).setOnBackPressed(null);
     }
+
+    private void verifyMovie() {
+        List<Rent> rents = SharedPersistence.getInstance().getUserRents();
+        for(Rent rent: rents) {
+            if (rent.getMovie().getId() == movie.getId()) {
+                modifyButton();
+                break;
+            }
+        }
+    }
+
+
+
 }
+

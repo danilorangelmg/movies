@@ -80,6 +80,7 @@ public class Util {
                 public void onSucess(String service, JSONObject result) {
                     if (isVisible && context != null) {
                         ((MainActivity)context).replace(MovieDetailFragment.newInstance(result.toString()), String.valueOf(id));
+                        ((MainActivity)context).setArrowIcon();
                     }
                 }
 

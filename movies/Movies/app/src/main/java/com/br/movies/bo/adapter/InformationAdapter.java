@@ -53,7 +53,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         Buy buy = (Buy) information.get(position);
         holder.txtData.setText(buy.getFormattedDate());
         holder.txtValue.setText(buy.getPrice());
-        String type = buy.isAtive() ? "Plano" : "Plano Adicional";
+        String type = !buy.isAdditional() ? "Plano" : "Plano Adicional";
         holder.txtType.setText(type);
     }
 

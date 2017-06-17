@@ -54,8 +54,8 @@ public class UserPlanActivity extends BaseActivity {
         OfferService.getInstance().getUserOffer(this, new OfferService.OnOfferResponse() {
             @Override
             public void onSuccess(Offer offerResult) {
-                String planInformation = txtPlanInformation.getText().toString().replace("{{movie}}", String.valueOf(offerResult.getMovieCount()));
-                int count = offerResult.getMovieCount() - offerResult.getCountMovies();
+                String planInformation = txtPlanInformation.getText().toString().replace("{{movie}}", String.valueOf(offerResult.getMaxMovie()));
+                int count = offerResult.getMaxMovie() - offerResult.getCountMovies();
                 String movieInformation = txtMovieInformation.getText().toString().replace("{{movie}}", String.valueOf(count));
                 txtPlanInformation.setText(planInformation);
                 txtMovieInformation.setText(movieInformation);

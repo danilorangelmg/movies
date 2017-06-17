@@ -10,5 +10,9 @@ public class Const {
 //    public static final String BASE_URL = "http://192.168.1.9:5000";
     public static final String BASE_URL = "http://52.37.183.144:5000";
     public static final String API_KEY = "d272326e467344029e68e3c4ff0b4059";
+    //preferences
+    public static String USER_ID = "USER_ID";
+    public static String USER_RENTS = "USER_RENTS";
+
 
 }

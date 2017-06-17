@@ -1,7 +1,6 @@
 package com.br.movies.bo.service;
 
 import android.content.Context;
-import android.preference.Preference;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -14,10 +13,14 @@ import com.br.movies.connect.volley.ServiceUtil;
 import com.br.movies.domain.Offer;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -132,6 +135,32 @@ public class OfferService {
         }
     }
 
+    public void getAdditionalOffers(Context context, final OnAdditionalOfferResponse onResponse) {
+        try {
+            new ServiceUtil(context).callService(ServiceUrl.GET_ADDITIONAL_OFFERS, Request.Method.GET, new ResultService() {
+                @Override
+                public void onSucess(String service, JSONObject result) {
+                    try {
+                        JSONArray array = result.getJSONArray("array");
+                        Offer[] offers = new Gson().fromJson(array.toString(), Offer[].class);
+                        List<Offer> lOffers = new ArrayList<Offer>(Arrays.asList(offers));
+                        onResponse.onSuccess(lOffers);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String service, VolleyError error) {
+                    onResponse.onError(error);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public interface OnNewOfferResponse {
         public void onSuccess(String offerId);
         public void onError(VolleyError error);
@@ -141,5 +170,11 @@ public class OfferService {
         public void onSuccess(Offer offer);
         public void onError(VolleyError error);
     }
+
+    public interface OnAdditionalOfferResponse {
+        public void onSuccess(List<Offer> offers);
+        public void onError(VolleyError error);
+    }
+
 
 }

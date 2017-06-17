@@ -18,6 +18,7 @@ import com.br.movies.bo.service.RentService;
 import com.br.movies.bo.util.SharedPersistence;
 import com.br.movies.domain.Buy;
 import com.br.movies.domain.Rent;
+import com.br.movies.view.activity.MainActivity;
 
 import java.util.List;
 
@@ -59,6 +60,16 @@ public class InformationFragment extends Fragment {
         ButterKnife.bind(this, view);
         init();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (buy) {
+            ((MainActivity)getActivity()).setScreenName("COMPRAS");
+        } else {
+            ((MainActivity)getActivity()).setScreenName("MINHA LISTA");
+        }
     }
 
     public void init() {

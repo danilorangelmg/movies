@@ -12,6 +12,7 @@ import java.util.Date;
 public class Buy {
 
     private boolean isAtive;
+    private boolean isAdditional;
     private String dateOfBuy;
     private String price;
 
@@ -54,5 +55,13 @@ public class Buy {
         }
 
         return "";
+    }
+
+    public boolean isAdditional() {
+        return isAdditional;
+    }
+
+    public void setAdditional(boolean additional) {
+        isAdditional = additional;
     }
 }

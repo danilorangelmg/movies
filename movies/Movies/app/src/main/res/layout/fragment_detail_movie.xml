@@ -31,7 +31,7 @@
             <FrameLayout
                 android:id="@+id/main.framelayout.title"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:background="@color/colorPrimary"
                 android:orientation="vertical"
@@ -54,7 +54,7 @@
                         android:gravity="center"
                         android:text="@string/app_name"
                         android:textColor="@android:color/white"
-                        android:textSize="30sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,7 +136,9 @@
                                 android:id="@+id/btnRent"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
-                                android:layout_margin="10dp"
+                                android:paddingTop="5dp"
+                                android:layout_marginRight="20dp"
+                                android:gravity="center"
                                 android:backgroundTint="@color/colorPrimaryDark">
 
                                 <TextView

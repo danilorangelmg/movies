@@ -153,6 +153,7 @@ public class OfferActivity extends BaseActivity {
                 offer = offerResult;
                 isEdit = true;
                 populateValues(offer.getMovieCount());
+                setArrowIcon();
             }
 
             @Override

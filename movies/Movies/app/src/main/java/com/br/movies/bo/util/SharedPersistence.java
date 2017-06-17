@@ -4,6 +4,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.br.movies.MoviesApplication;
+import com.br.movies.domain.Const;
+import com.br.movies.domain.Rent;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by danilorangel on 22/04/17.
@@ -11,7 +18,6 @@ import com.br.movies.MoviesApplication;
 
 public class SharedPersistence {
 
-    private static String USER_ID;
 
     private static SharedPersistence instance;
     private SharedPreferences sharedPreferences;
@@ -33,11 +39,11 @@ public class SharedPersistence {
     }
 
     public void saveUserId(String userId) {
-        saveString(USER_ID, userId);
+        saveString(Const.USER_ID, userId);
     }
 
     public String getUserId() {
-      return sharedPreferences.getString(USER_ID, "");
+      return sharedPreferences.getString(Const.USER_ID, "");
     }
 
     private void saveString(String key, String value) {
@@ -56,8 +62,21 @@ public class SharedPersistence {
     }
 
     public void clearAll() {
-        removeString(USER_ID);
+        removeString(Const.USER_ID);
+        removeString(Const.USER_RENTS);
     }
 
+    public void saveUsersRents(List<Rent> rents) {
+        String json = new Gson().toJson(rents);
+        saveString(Const.USER_RENTS, json);
+    }
+
+    public List<Rent> getUserRents() {
+        String json = sharedPreferences.getString(Const.USER_RENTS, "");
+        if (json.trim().equals("")) {
+            return new ArrayList<Rent>();
+        }
+        return new ArrayList<>(Arrays.asList(new Gson().fromJson(json, Rent[].class)));
+    }
 
 }

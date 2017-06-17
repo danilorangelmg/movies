@@ -9,10 +9,13 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.br.movies.MoviesApplication;
+import com.br.movies.bo.service.RentService;
+import com.br.movies.bo.util.SharedPersistence;
 import com.br.movies.bo.util.Util;
 import com.br.movies.connect.ResultService;
 import com.br.movies.connect.ServiceUrl;
 import com.br.movies.domain.HomeCategory;
+import com.br.movies.domain.Rent;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -44,6 +47,7 @@ public class HomeService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         try {
+            Log.i("HOME-SERVICE", "START-command");
             MoviesApplication.getApplication().getServiceUtil().callService(ServiceUrl.GET_HOME_MOVIES, Request.Method.GET, new ResultService() {
 
                 @Override
@@ -66,6 +70,25 @@ public class HomeService extends Service {
             e.printStackTrace();
         }
 
+        getUserRents();
+
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void getUserRents() {
+        String userId = SharedPersistence.getInstance().getUserId();
+        RentService.getInstance().getUserRent(getApplicationContext(), userId, new RentService.OnTakeRent() {
+            @Override
+            public void onSucess(List<Rent> rentList) {
+                if (rentList.size() > 0) {
+                    SharedPersistence.getInstance().saveUsersRents(rentList);
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
     }
 }

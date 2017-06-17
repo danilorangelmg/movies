@@ -169,8 +169,10 @@ public class MenuFragment extends Fragment {
 
         @Override
         public void onMenuClick(Menu menu) {
-            SearchFragment fragment = SearchFragment.newInstance(String.valueOf(menu.getId()), false);
+            SearchFragment fragment = SearchFragment.newInstance(String.valueOf(menu.getId()), true);
             ((MainActivity) getActivity()).replace(fragment);
+            ((MainActivity) getActivity()).setScreenName(menu.getName());
+            ((MainActivity)getActivity()).setArrowIcon();
         }
     };
 
@@ -194,6 +196,7 @@ public class MenuFragment extends Fragment {
         @Override
         public void onMenuClick(Menu menu) {
             ((MainActivity)getActivity()).replace(InformationFragment.newInstance(true));
+            ((MainActivity)getActivity()).setArrowIcon();
         }
     };
 
@@ -201,6 +204,7 @@ public class MenuFragment extends Fragment {
         @Override
         public void onMenuClick(Menu menu) {
             ((MainActivity)getActivity()).replace(InformationFragment.newInstance(false));
+            ((MainActivity)getActivity()).setArrowIcon();
         }
     };
 

@@ -130,6 +130,31 @@ public abstract class BaseActivity extends AppCompatActivity implements SetUpAct
         });
     }
 
+    public void setArrowIcon() {
+        homeButton.setImageResource(R.drawable.arrows);
+        homeButton.animate().rotation(-90).start();
+        toggleMenu(drawer);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                setHomeButton();
+                homeButton.animate().rotation(0).start();
+            }
+        });
+    }
+
+    public void setHomeButton() {
+        homeButton.setImageResource(R.drawable.hamb_menu);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleMenu(drawer);
+            }
+        });
+    }
+
+
     @Override
     public void setupActionBarConfig(AppCompatActivity activity, ActionBar actionBar, Toolbar toolbar, DrawerLayout drawer, ActionBarDrawerToggle toggle) {
         Util.setupActionBarConfig(activity, actionBar, toolbar, drawer, toggle);
