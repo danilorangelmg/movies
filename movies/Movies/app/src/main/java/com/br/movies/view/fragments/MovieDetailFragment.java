@@ -287,7 +287,6 @@ public class MovieDetailFragment extends Fragment  implements AppBarLayout.OnOff
 
     @Override
     public void onBack() {
-        ((MainActivity)getActivity()).setHomeButton();
         getActivity().getSupportFragmentManager().popBackStack(String.valueOf(movie.getId()), 0);
         ((MainActivity)getActivity()).setOnBackPressed(null);
     }

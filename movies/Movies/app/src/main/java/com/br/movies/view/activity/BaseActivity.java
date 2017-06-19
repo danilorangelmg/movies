@@ -133,13 +133,11 @@ public abstract class BaseActivity extends AppCompatActivity implements SetUpAct
     public void setArrowIcon() {
         homeButton.setImageResource(R.drawable.arrows);
         homeButton.animate().rotation(-90).start();
-        toggleMenu(drawer);
+//        toggleMenu(drawer);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                setHomeButton();
-                homeButton.animate().rotation(0).start();
             }
         });
     }
@@ -175,6 +173,11 @@ public abstract class BaseActivity extends AppCompatActivity implements SetUpAct
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_content, f).addToBackStack(tag)
                 .commitAllowingStateLoss();
+    }
+
+    public void adjustHomeButton() {
+        setHomeButton();
+        homeButton.animate().rotation(0).start();
     }
 
 }

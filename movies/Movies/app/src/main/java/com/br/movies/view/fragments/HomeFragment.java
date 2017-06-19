@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity)getActivity()).setScreenName("MOVIES");
+        ((MainActivity) getActivity()).adjustHomeButton();
     }
 
     private void init() {

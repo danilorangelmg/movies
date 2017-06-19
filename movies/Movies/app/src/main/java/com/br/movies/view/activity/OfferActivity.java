@@ -153,7 +153,6 @@ public class OfferActivity extends BaseActivity {
                 offer = offerResult;
                 isEdit = true;
                 populateValues(offer.getMovieCount());
-                setArrowIcon();
             }
 
             @Override
@@ -178,36 +177,7 @@ public class OfferActivity extends BaseActivity {
 
     @OnClick(R.id.btnConfirm)
     public void clickContinue() {
-        sendOffer();
-    }
-
-    public void sendOffer() {
-        if (isEdit) {
-            OfferService.getInstance().changeOffer(this, String.valueOf(offer.getOfferId()), new GenericResponse() {
-                @Override
-                public void onSuccess() {
-                    Intent intent = new Intent(OfferActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onError(VolleyError volleyError) {
-
-                }
-            });
-            return;
-        }
-        OfferService.getInstance().sendNewOffer(this, movieCount, price, new OfferService.OnNewOfferResponse() {
-            @Override
-            public void onSuccess(String offerId) {
-                createBuy(offerId);
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
+        createNewOffer();
     }
 
     private void createBuy(String offerId) {
@@ -224,6 +194,40 @@ public class OfferActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void createNewOffer() {
+        OfferService.getInstance().sendNewOffer(this, movieCount, price, new OfferService.OnNewOfferResponse() {
+            @Override
+            public void onSuccess(String offerId) {
+                if (!isEdit) {
+                    createBuy(offerId);
+                } else {
+                    changeOffer(offerId);
+                }
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+
+    private void changeOffer(String offerId) {
+        OfferService.getInstance().changeOffer(this, offerId, new GenericResponse() {
+            @Override
+            public void onSuccess() {
+                Intent intent = new Intent(OfferActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(VolleyError volleyError) {
+
+            }
+        });
+        return;
     }
 
 }
