@@ -3,17 +3,11 @@
 ### Desenvolvimento em Geral
 
 - É utilizado o padrão de desenvolvimento Model View Presenter(MVP).
-
 - Todas as telas são preferenciamente Activitys, utilizar Fragments apenas em casos de real necessidade. 
-
 - Toda a aplicação deve ser desenvolvida em Inglês, com resalva apenas para comentários a nivel de classe, método ou local.
-
 - Todo Activity ou Fragment deve conter seu presenter e a interface de contrato que fará a ligação entre a view e o presenter.
-
 - Toda a chamada de serviço(Api) deverá ser feita por seu respectivo Repository, implementando seu Callback respeitando a arquitetura do projeto. 
-
 - Não deixar qualquer tipo de dado hardcoded.
-
 - Sempre implementar os metodos savedInstance e restoreInstance 
 da Activity/Fragment(apenas savedInstance) afim de garantir que a aplicação não perca nenhuma informação. 
 
@@ -68,6 +62,7 @@ tasks já mergeadas nessa branch ou que necessitem de ser corrigidos na mesma ve
            versionName "2.1.5"
            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
            multiDexEnabled true
+       }
     }
    ```
    O versionName e o versionCode deverão ser alterados(incrementado no caso do versionCode) 
