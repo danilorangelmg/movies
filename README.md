@@ -43,7 +43,7 @@ tasks já mergeadas nessa branch ou que necessitem de ser corrigidos na mesma ve
  
  | Nomenclatura                    | Exemplo                | Criada a partir(Branch)          | Observação                                                                         |
  | :---------------------------:   |:----------------------:|:--------------------------------:|:------------: |
- | v-versionName                   |v-2.1.6                 | release/v-versionName            |      -        |
+ | v-versionName                   |v-2.1.6                 | master                           |      -        |
  
                                                                           
 ##### Referências                                    
@@ -113,3 +113,24 @@ tasks já mergeadas nessa branch ou que necessitem de ser corrigidos na mesma ve
 
 O nome deve seguir o padrão de Fragment(NomeDoQueEleRepresenta), Activity(NomeDoQueEleRepresenta)...
 Ex: FragmentLogin (Representa a parte de login do sistema).
+
+### Links uteis
+
+1. GitFlow
+    
+    http://nvie.com/posts/a-successful-git-branching-model/
+
+2. Documentação Android
+    
+    https://developer.android.com
+    
+3. MVP
+   
+   https://codelabs.developers.google.com/codelabs/android-testing/index.html#0
+        
+4. Outros
+    
+    https://adityaladwa.wordpress.com/2016/05/11/dagger-2-and-mvp-architecture/
+    
+    https://android.jlelse.eu/mvp-dagger-2-rx-clean-modern-android-app-code-74f63c9a6f2f
+    
