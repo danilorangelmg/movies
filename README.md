@@ -35,7 +35,7 @@ tasks já mergeadas nessa branch ou que necessitem de ser corrigidos na mesma ve
 | hotfixes/v-versionName          |hotfixes/v-2.1.6        | master                           | Agrupa todas as branchs referente a erros de produção                              |
 | hotfix/taskNumber-description   |hotfix/1234-descricao   | hotfixes/v-versionName           | Correções de erros de produção                                                     |
 | feature/taskNumber-description  |feature/1234-descricao  | develop                          | Atividades da Sprint ativa                                                         |
-| bugfix/taskNumber-description   |bugfix/1234-descricao   | develop ou release/v-versionName | Correções da Sprint ativa, se cria a partir branch release quando a branch existir |
+| bugfix/taskNumber-description   |bugfix/1234-descricao   | develop ou release/v-versionName | Correções da Sprint ativa, se cria a partir da branch release quando a branch existir |
 | release/v-versionName           |release/v-2.1.6         | develop                          | Criada após o termino das atividades da Sprint                                     |
                    
                                      
